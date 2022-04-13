@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <!-- 引入react核心库 -->
+  <script src="https://cdn.staticfile.org/react/16.8.4/umd/react.development.js"></script>
+  <!-- 引入react-dom，用于支持react操作dom -->
+  <script src="https://cdn.staticfile.org/react-dom/16.8.4/umd/react-dom.development.js"></script>
+  <!-- 引入babel，用于将jsx转为js -->
+  <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+<div id="test"></div>
+
+<script type="text/babel">
+  class Person extends React.Component{
+      state={
+          persons:[
+              {id:1,name:'小吴',age:18},
+              {id:2,name:'小李',age:19},
+          ]
+      }
+
+      add=()=>{
+          let p = {id:10,name:'小王',age:30}
+          this.setState({persons: [...this.state.persons,p]})
+      }
+
+      render() {
+          return (
+              <div>
+                  <h2>展示人员信息</h2>
+                  <button onClick={this.add}>添加一个小王</button>
+                  <ul>
+                      {
+                          this.state.persons.map((person,index)=>{
+                              return <li key={person.id}>{person.name}---{person.age}</li>
+                          })
+                      }
+                  </ul>
+              </div>
+          );
+      }
+  }
+
+  // 渲染组件
+  ReactDOM.render(<Person/>,document.getElementById('test'))
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <!-- 引入react核心库 -->
+  <script src="https://cdn.staticfile.org/react/16.8.4/umd/react.development.js"></script>
+  <!-- 引入react-dom，用于支持react操作dom -->
+  <script src="https://cdn.staticfile.org/react-dom/16.8.4/umd/react-dom.development.js"></script>
+  <!-- 引入babel，用于将jsx转为js -->
+  <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+<div id="test"></div>
+
+<script type="text/babel">
+  // 创建组件
+  class Life extends React.Component{
+      state = {
+          opacity: 1
+      }
+
+      death=()=>{
+          // 卸载组件
+          ReactDOM.unmountComponentAtNode(document.getElementById('test'))
+      }
+
+      componentWillUnmount(){
+          clearInterval(this.timer)
+      }
+
+      // 组件挂载完毕
+      componentDidMount(){
+          this.timer = setInterval(()=>{
+              let {opacity} = this.state
+              opacity-=0.1
+              if (opacity<=0) opacity=1
+              this.setState({opacity})
+          },200)
+      }
+
+      render() {
+          return (
+              <div>
+                  <h2 style={{opacity:this.state.opacity}}>React学不会怎么办？</h2>
+                  <button onClick={this.death}>不活了</button>
+              </div>
+          );
+      }
+  }
+  // 渲染组件
+  ReactDOM.render(<Life/>,document.getElementById('test'))
+</script>
+</body>
+</html>

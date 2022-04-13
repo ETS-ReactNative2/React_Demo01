@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 引入react核心库 -->
+    <script src="https://cdn.staticfile.org/react/16.8.4/umd/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作dom -->
+    <script src="https://cdn.staticfile.org/react-dom/16.8.4/umd/react-dom.development.js"></script>
+    <!-- 引入babel，用于将jsx转为js -->
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+<div id="test"></div>
+
+<script type="text/babel">
+    class Demo extends React.Component{
+        myRef = React.createRef()
+
+        showData = () => {
+            console.log(this.myRef)
+            console.log(this.myRef.current.value)
+        }
+
+        showData2 = () => {
+            const {input2} = this
+            alert(input2.value)
+        }
+
+        render() {
+            return (
+                <div>
+                    <input type="text" ref={this.myRef}/>
+                    <button onClick={this.showData}>点我提示左侧的数据</button>
+                </div>
+            );
+        }
+    }
+
+    ReactDOM.render(<Demo/>,document.getElementById('test'))
+</script>
+</body>
+</html>

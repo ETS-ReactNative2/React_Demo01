@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 引入react核心库 -->
+    <script src="https://cdn.staticfile.org/react/16.8.4/umd/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作dom -->
+    <script src="https://cdn.staticfile.org/react-dom/16.8.4/umd/react-dom.development.js"></script>
+    <!-- 引入babel，用于将jsx转为js -->
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+<div id="test"></div>
+
+<script type="text/babel">
+    class Demo extends React.Component{
+
+        state = {
+            isHot: true
+        }
+
+        // 展示左侧输入框
+        showData = () =>{
+            alert(this.input1.value)
+        }
+
+        showData2=()=>{
+            alert(this.input2.value)
+        }
+
+        changeWeather=()=>{
+            const {state} = this.state
+            this.setState({
+                isHot: !isHot
+            })
+        }
+
+        saveInput = (c) =>{
+            this.input3=c
+            console.log(c)
+        }
+
+        render() {
+            const {isHot} = this.state
+            return (
+                <div>
+                    <h2>今天天气很{isHot?'炎热':'凉爽'}</h2>
+                    <input ref={currentNode=>this.input1=currentNode} type="text" placeholder="失去焦点提示数据"/>
+                    <input ref={this.saveInput} type="text" placeholder="失去焦点提示数据"/>
+                    <button ref="btn" onClick={this.showData}>点我显示左侧的数据</button>
+                    <input  ref={currentNode=>this.input2=currentNode} onBlur={this.showData2} type="text" placeholder="失去焦点提示数据"/>
+                    <button onClick={this.changeWeather}>点我切换天气</button>
+                </div>
+            );
+        }
+    }
+
+    ReactDOM.render(<Demo/>,document.getElementById('test'))
+</script>
+</body>
+</html>
